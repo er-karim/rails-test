@@ -43,8 +43,7 @@ RSpec.feature "Buildings", type: :feature, js: true do
       visit edit_building_path(building)
       fill_form(invalid_building, 'Update Building')
 
-      expect(page).to have_content("Manager name can't be blank")
-      expect(page).to have_content("Reference can't be blank")
+      expect_validation_errors()
     end
   end
 
@@ -66,8 +65,7 @@ RSpec.feature "Buildings", type: :feature, js: true do
       visit new_building_path
       fill_form(building, 'Create Building')
 
-      expect(page).to have_content("Manager name can't be blank")
-      expect(page).to have_content("Reference can't be blank")
+      expect_validation_errors()
     end
   end
 
@@ -90,5 +88,12 @@ RSpec.feature "Buildings", type: :feature, js: true do
     fill_in 'Country', with: building.country
     fill_in 'Manager name', with: building.manager_name
     click_button submit_button
+  end
+
+  def expect_validation_errors
+    expect(page).to have_content("Manager name can't be blank")
+    expect(page).to have_content("Manager name is too short (minimum is 2 characters)")
+    expect(page).to have_content("Reference can't be blank")
+    expect(page).to have_content("Reference is not a number")
   end
 end

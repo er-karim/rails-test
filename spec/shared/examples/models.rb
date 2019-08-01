@@ -9,3 +9,7 @@ RSpec.shared_examples 'uniqueness validations' do |fields|
     it { should validate_uniqueness_of(field) }
   end
 end
+
+RSpec.shared_examples "updatable" do
+  it { should have_many(:updates) }
+end

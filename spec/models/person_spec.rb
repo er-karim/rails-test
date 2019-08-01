@@ -8,5 +8,6 @@ RSpec.describe Person, type: :model do
     it { should validate_numericality_of(:reference).only_integer }
     it { should allow_value("test@example.dev").for(:email) }
     it { should_not allow_value("test").for(:email) }
+    it_behaves_like 'updatable'
   end
 end

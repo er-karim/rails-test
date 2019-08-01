@@ -7,5 +7,6 @@ RSpec.describe Building, type: :model do
     it { should validate_length_of(:manager_name).is_at_least(2) }
     it { should validate_uniqueness_of(:reference) }
     it { should validate_numericality_of(:reference).only_integer }
+    it_behaves_like 'updatable'
   end
 end

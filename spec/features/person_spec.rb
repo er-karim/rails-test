@@ -26,8 +26,9 @@ RSpec.feature "People", type: :feature, js: true do
   describe "people#update" do
     let!(:person) { create(:person) }
 
-    scenario "update successfully with valid values" do
+    scenario "update successfully with valid values and create updates" do
       random_person = build(:person, :random_person)
+      updates_before_count = Update.count
 
       visit edit_person_path(person)
       fill_form(random_person, 'Update Person')
@@ -35,6 +36,7 @@ RSpec.feature "People", type: :feature, js: true do
       expect(page).to have_content('Person was successfully updated.')
       expect(page).to have_content(random_person.reference)
       expect(page).to have_content(random_person.email)
+      expect(Update.count).not_to eq(updates_before_count)
     end
 
     scenario "update failed with invalid values" do

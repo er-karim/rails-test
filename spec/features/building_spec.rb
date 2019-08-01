@@ -26,8 +26,9 @@ RSpec.feature "Buildings", type: :feature, js: true do
   describe "buildings#update" do
     let!(:building) { create(:building) }
 
-    scenario "update successfully with valid values" do
+    scenario "update successfully with valid values and create updates" do
       random_building = build(:building, :random_building)
+      updates_before_count = Update.count
 
       visit edit_building_path(building)
       fill_form(random_building, 'Update Building')
@@ -35,6 +36,7 @@ RSpec.feature "Buildings", type: :feature, js: true do
       expect(page).to have_content('Building was successfully updated.')
       expect(page).to have_content(random_building.manager_name)
       expect(page).to have_content(random_building.reference)
+      expect(Update.count).not_to eq(updates_before_count)
     end
 
     scenario "update failed with invalid values" do

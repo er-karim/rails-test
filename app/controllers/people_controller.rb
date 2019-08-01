@@ -40,6 +40,7 @@ class PeopleController < ApplicationController
   def update
     respond_to do |format|
       if @person.update(person_params)
+        Updates::Creator.call({model: Person, record_id: @person.id})
         format.html { redirect_to @person, notice: 'Person was successfully updated.' }
       else
         format.html { render :edit }

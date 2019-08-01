@@ -40,6 +40,7 @@ class BuildingsController < ApplicationController
   def update
     respond_to do |format|
       if @building.update(building_params)
+        Updates::Creator.call({model: Building, record_id: @building.id})
         format.html { redirect_to @building, notice: 'Building was successfully updated.' }
       else
         format.html { render :edit }

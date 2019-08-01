@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_25_205918) do
+ActiveRecord::Schema.define(version: 2019_07_30_234025) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,19 @@ ActiveRecord::Schema.define(version: 2019_07_25_205918) do
     t.string "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "updates", force: :cascade do |t|
+    t.string "field"
+    t.string "value"
+    t.string "updatable_type"
+    t.bigint "updatable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["field"], name: "index_updates_on_field"
+    t.index ["updatable_id", "updatable_type", "field", "value"], name: "uniqueness_index", unique: true
+    t.index ["updatable_type", "updatable_id"], name: "index_updates_on_updatable_type_and_updatable_id"
+    t.index ["value"], name: "index_updates_on_value"
   end
 
 end

@@ -9,7 +9,7 @@ FactoryBot.define do
     address { "address" }
 
     trait :random_person do
-      reference { rand(2..10000) }
+      sequence(:reference) { |n| n }
       email { Faker::Internet.email }
       home_phone_number { Faker::PhoneNumber.cell_phone }
       mobile_phone_number { Faker::PhoneNumber.phone_number }
